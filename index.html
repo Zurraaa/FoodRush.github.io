@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(92, 105, 102, 0.75), rgba(50, 65, 61, 0.75));
+        }
+
+        .slider {
+            width: 100vw;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh; 
+            flex: 0 0 100vw;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #radio-btn {
+            display: flex;
+            justify-content: left;
+            margin-top: -3px;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #radio-btn label {
+            margin: 5px;
+            cursor: pointer;
+            display: inline;
+            margin-right: 40px;
+            padding: 0 10px;
+        }
+        #radio-btn label:hover {
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        #radio-btn input[type="radio"] {
+            display: none;
+        }
+
+        nav {
+            width: 100%;
+            height: 75px;
+            line-height: 75px;
+            padding: 0 100px;
+            position: fixed;
+            background-image: linear-gradient(rgba(92, 105, 102, 0.75), rgba(50, 65, 61, 0.75));
+            margin-bottom: 43%;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;    
+            height: 100%;   
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-container h3 {
+            position: absolute;
+            top: 100px;
+            left: 50px;
+            color: white;
+            font-size: 5vh;
+        }
+        .image-container p {
+            position: absolute;
+            top: 160px;
+            left: 50px;
+            color: white;
+            word-spacing: 6px;
+            margin-right: 50%;
+            font-size: 25px;
+            background: rgba(255, 255, 255, 0.229);
+        }
+        .image-container1 {
+            position: relative;
+            width: 100%;    
+            height: 100%;
+        } 
+        .image-container1 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .contact-header {
+            position: absolute;
+            top: 45vh;
+            left: 76vh;
+            color: white;
+        }
+        .email-header {
+            position: absolute;
+            top: 45vh;
+            left: 113vh;
+            color: white;
+        }
+        .location-header {
+            position: absolute;
+            color: white;
+            top: 40vh;
+            left: 69vh;
+            font-size: 4vh;
+        }
+        .number {
+            position: absolute;
+            top: 49vh;
+            left: 80.5vh;
+            color: white;
+            font-size: 20px;
+        }
+        .eyyy {
+            position: absolute;
+            color: white;
+            top: 49vh;
+            left: 109vh;
+            font-size: 20px;
+        }
+        .image-container2 {
+        position: relative; 
+        }
+        .items {
+        position: absolute;
+        background: none;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding:30px 20px;
+        border-radius: 10px;
+        grid-column-gap: 20px;
+        grid-row-gap: 30px;
+        top: 0;
+        left: 0;
+        align-items: center;
+        margin-top: 10vh;
+
+        }
+        .item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        .item img:hover {
+            transform: scale(1.04);
+        }
+        .item h4 {
+            padding: 5px;
+            text-align: center;
+            color: white;
+        }
+        .item button {
+            padding: 5px 30px;
+            border: none;
+            outline: none;
+            background-color: aqua;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 20px;
+            display: block;
+            margin: 0 auto;
+            transition: 0.2s all;
+        }
+        .item button:hover {
+            transform: scale(1.08);
+        }
+        .image-container3 {
+        position: relative;
+        }
+        .stuff {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 0; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+        margin-top: 8vh;
+        }
+        label,
+        input,
+        select,
+        textarea {
+        display: block;
+        margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        }
+
+        label {
+        font-weight: bold;
+        }
+
+        .form-group {
+        margin-bottom: 8px;
+        }
+
+        button {
+        background-color: #5bc7c7;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 3px;
+        cursor: pointer;
+        }
+
+        button:hover {
+        background-color: #5bc7c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215037026607145/logo.png?ex=6554975b&is=6542225b&hm=0128fb7b0e1c956a5dc4bb38dffa2905a5afc1b593ae6b2b797140ce4a7b9824&" alt="Image 1">
+            </div>
+            <div class="slide">
+                <div class="image-container2">
+                    <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215037357949019/black.jpg?ex=6554975b&is=6542225b&hm=803d1abd60605675a595d8bec21d94a34ae0ae796017e15873d948bb87f65b7c&" alt="Image 2">
+                    <section class="items">
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215037605433445/cheeseburger.jpg?ex=6554975b&is=6542225b&hm=a5b8b4b1f33c0f82a6c6dd52f469859aa495bd35faceda6833e5d9db1cb3bcd4&" alt="Cheeseburger">
+                            <h4>Cheeseburger</h4>
+                            <button>₱35</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215037857079377/doublecheeseburger.jpg?ex=6554975b&is=6542225b&hm=3dc4e8e45f03ac6c552f874ef9362b497e21ba7eea939b73501af370dc4e8f76&" alt="Double Cheeseburger">
+                            <h4>Double Cheeseburger</h4>
+                            <button>₱45</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215038146498570/triplecheeseburger.jpg?ex=6554975c&is=6542225c&hm=4876d47bec312bea536a255403b35cfb0afa0b83c00bfe2bd662d5aae8f90b1d&" alt="Triple Cheeseburger">
+                            <h4>Triple Cheeseburger</h4>
+                            <button>₱65</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215038423310387/CHEESEBURGER1.jpg?ex=6554975c&is=6542225c&hm=c14f54788a307ca5f3a36fd59b93d29ecf18d4bce0c0464edc4e826b4909056f&" alt="CHEESEBURGER">
+                            <h4>CHEESE BURGER</h4>
+                            <button>₱100</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215038872092733/fries.jpg?ex=6554975c&is=6542225c&hm=2dfd21944e8efd9ee99ad03401430e6601f489efce7886326dbf64353e8e0427&" alt="Regular Fries">
+                            <h4>Regular Fries</h4>
+                            <button>₱30</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215039299932201/curlyfries.jpg?ex=6554975c&is=6542225c&hm=bb7f0f222bdacf4c39c17054469ca2bdc3eefb7c6ab78588cde2202aa88c1d96&" alt="Curly Fries">
+                            <h4>Curly Fries</h4>
+                            <button>₱30</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215039614492692/wafflefries.jpg?ex=6554975c&is=6542225c&hm=06640fd5f8350cf8d8b81b6a4f8284cc2194f0dfca8200736a5241475944ee5b&" alt="wafflefries">
+                            <h4>Waffle Fries</h4>
+                            <button>₱30</button>
+                        </div>
+                        <div class="item">
+                            <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215040088440842/bucketoffries.jpg?ex=6554975c&is=6542225c&hm=aecd8acb84be492f1f02ce2b8cc2c0a613ebe36aa58f5e81cbeff62e4de94e6d&" alt="Bucket of Fries">
+                            <h4>Bucket of Fries</h4>
+                            <button>₱100</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="image-container">
+                    <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215205364994109/AboutUsBackground.jpg?ex=65549783&is=65422283&hm=630e00bef67899dfb712c62f2162fd60490db5f70ea963e6ee8462e3c7a74bea&" alt="Image 3">
+                    <h3>About Us</h3>
+                    <p>The idea of FoodRush started when I was planning to start a business of my own. I was doing research about how to start and handle a business. I was observing our local area and noticed that most people in my barangay really like fast food, but the problem is that most of the fast food restaurants are far away. That is when I decided to build this business. I never really thought that I would come this far, but everything went better than expected.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="image-container1">
+                    <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215205654417489/2ndSlide.gif?ex=65549783&is=65422283&hm=01ffbf6eaf2395860b399e53f3bb0bb0153c68b13bd3c4926e690694e979da27&" alt="Image 4">
+                    <h2 class="contact-header">Contact Number</h2>
+                    <p class="number">09923802381</p>
+                    <h2 class="email-header">Email Address</h2>
+                    <p class="eyyy">rollycinco8@gmail.com</p>
+                    <h3 class="location-header">Located in Purok 3 Ampayon Butuan City</h3>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="image-container3">
+                    <img src="https://cdn.discordapp.com/attachments/1022885038712443003/1169215206182883389/whitebackground.jpg?ex=65549784&is=65422284&hm=81572aabd5f8db4a04c58bd5806a5e6e553d665ce6f955268201a63234fd3ca7&" alt="Image 5">
+                    <div class="stuff">
+                        <form action="https://zurraaa.github.io/FoodRush.github.io/">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <input type="number" id="guests" name="guests" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_time">Date and Time</label>
+                                <input type="datetime-local" id="date_time" name="date_time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reservation_type">Type of Reservation</label>
+                                <select id="reservation_type" name="reservation_type">
+                                    <option value="Regular">Regular</option>
+                                    <option value="Special Occasion">Special Occasion</option>
+                                    <option value="Private Event">Private Event</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="special_request">Special Request</label>
+                                <textarea id="special_request" name="special_request" rows="4"></textarea>
+                            </div>
+                            <button type="submit">Submit Reservation</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <nav>
+        <div id="radio-btn">
+            <label for="radio1"><input type="radio" id="radio1" name="radios" checked>Home</label>
+            <label for="radio2"><input type="radio" id="radio2" name="radios">Menu</label>
+            <label for="radio3"><input type="radio" id="radio3" name="radios">About Us</label>
+            <label for="radio4"><input type="radio" id="radio4" name="radios">Contact Us</label>
+            <label for="radio5"><input type="radio" id="radio5" name="radios">Reservation</label>
+        </div>
+    </nav>
+    <script>
+        const radioBtns = document.querySelectorAll('input[type="radio"]');
+        const slides = document.querySelector('.slides');
+        const slideWidth = 100;
+
+        radioBtns.forEach((radio, index) => {
+            radio.addEventListener('change', () => {
+                slides.style.transform = `translateX(-${slideWidth * index}vw)`;
+            });
+        });
+    </script>
+</body>
+</html>
+
